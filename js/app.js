@@ -8,6 +8,14 @@ $(function() {
 		});
 	};
 
+	function CargarTODOespecifico(categoria){
+		return $.ajax({
+			url: 'http://ipm.esy.es/public/menu/'+categoria,
+			type: 'GET',
+			dataType: 'json'
+		});
+	};
+
 
 
 
@@ -23,7 +31,36 @@ $(function() {
 
 
 		_self.CargarCategoriaComida = function(){
-				CargarTODOmenu().done(function(res){
+				CargarTODOespecifico("rico").done(function(res){
+					if(res.error){
+						console.log(res.msg);
+						return false;
+					}
+					//localStorage.setItem("id_comida", res.datos.ID);
+					//localStorage.setItem("Categoria", res.datos.Categoria);
+					//localStorage.setItem("Categoria", res.datos.ID);
+					//NO SE QUE ONDA CON LA DISPONIBILIDAD DEBERIA SER VALIDADO EN EL API
+					_self.menu_producto(res.datos);
+				});
+		}
+
+
+		_self.CargarCategoriaBebida = function(){
+				CargarTODOespecifico("mas riko que la hamburguesa").done(function(res){
+					if(res.error){
+						console.log(res.msg);
+						return false;
+					}
+					//localStorage.setItem("id_comida", res.datos.ID);
+					//localStorage.setItem("Categoria", res.datos.Categoria);
+					//localStorage.setItem("Categoria", res.datos.ID);
+					//NO SE QUE ONDA CON LA DISPONIBILIDAD DEBERIA SER VALIDADO EN EL API
+					_self.menu_producto(res.datos);
+				});
+		}
+
+		_self.CargarCategoriaPostre = function(){
+				CargarTODOespecifico("sabrosos").done(function(res){
 					if(res.error){
 						console.log(res.msg);
 						return false;
@@ -37,13 +74,14 @@ $(function() {
 		}
 
 		_self.AgregarPedido = function(datos){
+			console.log(datos);
 			var temp=[];
-			if(data.Categoria=="rico")
-				temp[0]=data;
-			if(data.Categoria=="masriko")
-				temp[1]=data;
-			if(data.Categoria=="sabrosos")
-				temp[2]=data;
+			if(datos.Categoria=="rico")
+				temp[0]=datos;
+			if(datos.Categoria=="mas riko que la hamburguesa")
+				temp[1]=datos;
+			if(datos.Categoria=="sabrosos")
+				temp[2]=datos;
 			_self.producto_pedido(temp);
 		}
 
