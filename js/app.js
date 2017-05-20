@@ -46,7 +46,7 @@ $(function() {
 
 
 		_self.CargarCategoriaBebida = function(){
-				CargarTODOespecifico("mas riko que la hamburguesa").done(function(res){
+				CargarTODOespecifico("mas_riko_que_la_hamburguesa").done(function(res){
 					if(res.error){
 						console.log(res.msg);
 						return false;
