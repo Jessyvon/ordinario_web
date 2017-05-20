@@ -31,7 +31,7 @@ $(function() {
 
 
 		_self.CargarCategoriaComida = function(){
-				CargarTODOespecifico("rico").done(function(res){
+				CargarTODOespecifico("comida").done(function(res){
 					if(res.error){
 						console.log(res.msg);
 						return false;
@@ -46,7 +46,7 @@ $(function() {
 
 
 		_self.CargarCategoriaBebida = function(){
-				CargarTODOespecifico("mas_riko_que_la_hamburguesa").done(function(res){
+				CargarTODOespecifico("bebida").done(function(res){
 					if(res.error){
 						console.log(res.msg);
 						return false;
@@ -60,7 +60,7 @@ $(function() {
 		}
 
 		_self.CargarCategoriaPostre = function(){
-				CargarTODOespecifico("sabrosos").done(function(res){
+				CargarTODOespecifico("postre").done(function(res){
 					if(res.error){
 						console.log(res.msg);
 						return false;
@@ -76,11 +76,11 @@ $(function() {
 		_self.AgregarPedido = function(datos){
 			console.log(datos);
 			var temp=[];
-			if(datos.Categoria=="rico")
+			if(datos.Categoria=="comida")
 				temp[0]=datos;
-			if(datos.Categoria=="mas riko que la hamburguesa")
+			if(datos.Categoria=="bebida")
 				temp[1]=datos;
-			if(datos.Categoria=="sabrosos")
+			if(datos.Categoria=="postre")
 				temp[2]=datos;
 			_self.producto_pedido(temp);
 		}
