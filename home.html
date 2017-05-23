@@ -73,31 +73,28 @@
 
             <div class="col-md-3">
                 <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h2 class="panel-title">PEDIDO</h2>
-                  </div>
+                      <div class="panel-heading">
+                        <h2 class="panel-title">PEDIDO</h2>
+                      </div>
                   <div class="panel-body">
-                    <div class="list-group" data-bind="foreach: producto_pedido">
-                        <div class="list-group-item">
-                            <div class="thumbnail" >
-                                    <img src="" data-bind="attr:{src:Imagen} ">
-                                    <div class="">
-                                        <h4 class="pull-right" data-bind="text: Precio"></h4>
-                                        <h6 data-bind="text: Nombre"><strong></strong></h6>
-                                        </h4>
-                                        <p data-bind="text: Descripcion"></p>
-                                    </div>
-                                </div>
+                        <div class="list-group" data-bind="foreach: producto_pedido">
+                            <div class="list-group-item">
+                               <div class="thumbnail" >
+                                        <img src="" data-bind="attr:{src:Imagen} ">
+                                        <div>
+                                            <h4 class="pull-right" data-bind="text: Precio"></h4>
+                                            <h6 data-bind="text: Nombre"><strong></strong></h6>
+                                            <p data-bind="text: Descripcion"></p>
+                                        </div>
+                                    </div>      
+                            </div>
                         </div>
-
-                        <button type="button" class="btn btn-primary btn-lg ">Confirmar</button>
-                    </div>
-                  </div>
-                </div>
+                     <button type="button" class="btn btn-primary btn-lg ">Confirmar</button>
+                   </div>
                     
-            </div>
+                </div>
 
-    </div>
+        </div>
         <!-- jQuery -->
     <script src="js/jquery.js"></script>
     <!-- Knockoutjs -->
