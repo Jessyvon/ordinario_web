@@ -15,6 +15,35 @@
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 
+     <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Knockoutjs -->
+    <script type='text/javascript' src='js\knockout-3.4.2.js'></script>
+    <script type='text/javascript' src='js\app.js'></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+          $( document ).ready(function() {
+           
+
+
+            var pedido = localStorage.getItem('ExistePedido');
+            console.log(pedido);
+              if(pedido=="no"){
+                $('#botonComida').removeClass('disabled');
+                $('#botonComida').removeAttr('disabled');
+              }
+              else
+              {
+                if(pedido=="si"){
+
+                }
+              }
+
+            });
+    </script>
+
 </head>
 <body>
     <!-- Navigation -->
@@ -23,6 +52,9 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.html">CAFEAPP</a>
+                <p style="color:#FFFFFF"; class="lead navbar-header text-white ">ESTADO DEL PEDIDO:</p>
+            <p style="color:#FFFFFF"; id="estado_pedido" class="lead navbar-header "></p>
+             <button type="button" class="btn btn-primary btn-lg navbar-header " data-bind="click: Estado" >VER</button>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
         </div>
@@ -40,13 +72,14 @@
             <div class="col-md-3">
                 <p class="lead">CATEGORIAS</p>
                 <div class="list-group">
-                    <button class="list-group-item " data-bind="click: CargarCategoriaComida"><img src="icon/comida.png" width="150">COMIDA</button>
-                    <button class="list-group-item " data-bind="click: CargarCategoriaBebida"><img src="icon/bebida.png" width="150">BEBIDA</button>
-                    <button class="list-group-item " data-bind="click: CargarCategoriaPostre"><img src="icon/postre.png" width="150">POSTRE</button>
+                    <button id="botonComida" class="list-group-item disabled" disabled="true" data-bind="click: CargarCategoriaComida"><img src="icon/comida.png" width="150">COMIDA</button>
+                    <button id="botonBebida" class="list-group-item disabled" disabled="true" data-bind="click: CargarCategoriaBebida"><img src="icon/bebida.png" width="150">BEBIDA</button>
+                    <button id="botonPostre" class="list-group-item disabled" disabled="true" data-bind="click: CargarCategoriaPostre"><img src="icon/postre.png" width="150">POSTRE</button>
                 </div>
             </div>
 
             <div class="col-md-6">
+            
                     <div class="panel panel-default">
 
                     <div class="panel-body">
@@ -89,18 +122,114 @@
                                     </div>      
                             </div>
                         </div>
-                     <button type="button" class="btn btn-primary btn-lg ">Confirmar</button>
+                     <button type="button" class="btn btn-primary btn-lg " data-toggle="modal" data-target="#myModal" data-bind="click: ConfirmarPedido">Confirmar</button>
                    </div>
                     
                 </div>
 
         </div>
-        <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <!-- Knockoutjs -->
-    <script type='text/javascript' src='js\knockout-3.4.2.js'></script>
-    <script type='text/javascript' src='js\app.js'></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-danger">CONFIRMAR PEDIDO</h4>
+              </div>
+              <div class="modal-body">
+                <p>Estos son los elementos de tu pedido:</p>
+                    <div data-bind="foreach: confirmacion_producto_pedido">
+                            <div >
+                               <div class="thumbnail" >
+                                        <div>
+                                            <h4 class="pull-right" data-bind="text: Precio"></h4>
+                                            <h4 data-bind="text: Nombre"><strong></strong></h4>
+                                            <p data-bind="text: Descripcion"></p>
+                                        </div>
+                                    </div>      
+                            </div>
+                        </div>
+                    <h4 class="modal-title text-right">TOTAL:</h4>
+                    <h3 class="text-right" id="total"></h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-lg " data-dismiss="modal" data-toggle="modal" data-target="#myModalPAGAR" data-bind="click: casiPagar">PAGAR</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Modal 2-->
+        <div id="myModalPAGAR" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-danger">PAGAR</h4>
+              </div>
+              <div class="modal-body">
+                    <h4 class="modal-title text-right">TOTAL DEL PEDIDO:</h4>
+                    <h3 class="text-right" id="total2"></h3>
+                    <p class="text-right">Pagar con la tarjeta: </p>
+                    <h3 class="text-right">XXXX XXXX XXXX XX29</h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-lg " data-dismiss="modal"  data-bind="click: Pagar">PAGAR CON TARJETA ELEGIDA</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Modal 3-->
+        <div id="myModalPAGADO" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-danger">GRACIAS</h4>
+              </div>
+              <div class="modal-body">
+                    <h1 class="modal-title text-center">PAGADO! Tu pedido esta en proceso.</h1>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-lg " data-dismiss="modal" data-bind="click: Cerrar" >CERRAR</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Modal 4-->
+        <div id="myModalErrorPAGADO" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-danger">ERROR</h4>
+              </div>
+              <div class="modal-body">
+                    <h1 class="modal-title text-center">Hubo un error al procesar tu pedido.</h1>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-lg " data-dismiss="modal">CERRAR</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+       
 </body>
 </html>
