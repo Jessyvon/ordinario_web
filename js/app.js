@@ -182,7 +182,7 @@ $(function() {
                         }
                         if(res.datos[0].Estatus=="Listo"){
                             console.log("Tu Pedido esta listo");
-                             $('#estado_pedido').html("Tu pedido esta listo, para entrega");
+                             $('#estado_pedido').html("Tu pedido esta listo, puedes ir a recojerlo");
                         }
                         if(res.datos[0].Estatus=="Cancelado"){
                         	localStorage.setItem("ExistePedido", "no");
@@ -192,7 +192,7 @@ $(function() {
                         if(res.datos[0].Estatus=="Entregado"){
                         	localStorage.setItem("ExistePedido", "no");
                             console.log("Tu Pedido esta listo");
-                            $('#estado_pedido').html("Pedido entregado con éxito");
+                            $('#estado_pedido').html("Pedido entregado con éxito, ATUALIZA LA PAGINA");
                         }
                     });
                 }
